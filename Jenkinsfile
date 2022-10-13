@@ -2,7 +2,7 @@ pipeline
 {
     agent
 	{
-		label 'MASTER'
+		label 'QA'
 	}
 	stages 
 	{
