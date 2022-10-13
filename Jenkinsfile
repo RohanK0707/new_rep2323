@@ -1,33 +1,24 @@
-pipeline {
-    
-    agent any
-    
-    stages {
-        
-        stage ('stage-1') {
-            
-            steps {
-                
-                
-                sh "sudo yum install httpd -y"
-                sh "sudo service httpd start"
-                
-               
-                
-            
-            }
-        }
-        
-        stage ('stage-2') {
-            
-            steps {
-                
-                
-                
-                sh "sudo echo hello > /var/www/html/index.html "
-                sh "chmod 777 /var/www/html/index.html"
-            }
-        
-        
+pipeline 
+{
+    agent
+	{
+		label 'Master'
+	}
+	stages 
+	{
+		stage ('HTTP Service Install on Jenkis Master')
+		{
+			steps 
+			{
+				echo "Installing HTTPD Service"
+				sh "sudo yum update -y"
+				sh "sudo yum install httpd -y"
+				sh "sudo chkconfig httpd on"
+				sh "sudo service httpd start"
+				sh "sudo echo My First Page >> /var/www/html/index.html"
+				sh "sudo chmod -R 777 /var/www/html/index.html"
+			
+			}
+		}
     }
-}}
+}
